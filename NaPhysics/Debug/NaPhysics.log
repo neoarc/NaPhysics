@@ -1,0 +1,11 @@
+﻿  NaPhysicsDlg.cpp
+d:\private\project\naphysics\naphysics\naphysicsdlg.h(25): warning C4244: '=': conversion from 'float32' to 'LONG', possible loss of data
+d:\private\project\naphysics\naphysics\naphysicsdlg.h(26): warning C4244: '=': conversion from 'float32' to 'LONG', possible loss of data
+d:\private\project\naphysics\naphysics\naphysicsdlg.h(27): warning C4244: '=': conversion from 'float32' to 'LONG', possible loss of data
+d:\private\project\naphysics\naphysics\naphysicsdlg.h(28): warning C4244: '=': conversion from 'float32' to 'LONG', possible loss of data
+d:\private\project\naphysics\naphysics\naphysicsdlg.cpp(172): warning C4244: '=': conversion from 'float32' to 'LONG', possible loss of data
+d:\private\project\naphysics\naphysics\naphysicsdlg.cpp(174): warning C4244: '=': conversion from 'float32' to 'LONG', possible loss of data
+d:\private\project\naphysics\naphysics\naphysicsdlg.cpp(227): warning C4244: 'argument': conversion from 'int' to 'float32', possible loss of data
+d:\private\project\naphysics\naphysics\naphysicsdlg.cpp(233): warning C4244: 'argument': conversion from 'LONG' to 'float32', possible loss of data
+  NaPhysics.vcxproj -> D:\private\Project\NaPhysics\Debug\NaPhysics.exe
+  NaPhysics.vcxproj -> D:\private\Project\NaPhysics\Debug\NaPhysics.pdb (Partial PDB)
