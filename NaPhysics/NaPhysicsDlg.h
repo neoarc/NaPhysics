@@ -33,6 +33,7 @@ public:
 
 	b2Body *m_pBody;
 	SIZE m_Size;
+	int m_nType = 0;
 };
 
 // CNaPhysicsDlg dialog
@@ -72,4 +73,5 @@ public:
 	afx_msg void OnStnClickedStaticCanvas();
 	afx_msg void OnBnClickedBtnTimer();
 	void AddBox(int x, int y);
+	void AddCircle(int x, int y);
 };

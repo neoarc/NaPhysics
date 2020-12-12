@@ -175,7 +175,10 @@ void CNaPhysicsDlg::Render()
 		rc.right = rc.left + pObj->m_Size.cx;
 
 		//auto rcObj = pObj->GetRect();
-		dc->Rectangle(rc);
+		if (pObj->m_nType == 0)
+			dc->Rectangle(rc);
+		if (pObj->m_nType == 1)
+			dc->Ellipse(rc);
 	});
 
 	br.DeleteObject();
@@ -204,8 +207,10 @@ void CNaPhysicsDlg::OnStnClickedStaticCanvas()
 	ptMouse.Offset(-rcWindow.left, -rcWindow.top);
 
 	//TRACE(L"Clicked : %d, %d\n", ptMouse.x, ptMouse.y);
-
-	AddBox(ptMouse.x, rcWindow.Height() - ptMouse.y);
+	if (GetAsyncKeyState(VK_SHIFT))
+		AddBox(ptMouse.x, rcWindow.Height() - ptMouse.y);
+	else
+		AddCircle(ptMouse.x, rcWindow.Height() - ptMouse.y);
 	Render();
 }
 
@@ -218,6 +223,7 @@ void CNaPhysicsDlg::OnBnClickedBtnTimer()
 void CNaPhysicsDlg::AddBox(int x, int y)
 {
 	auto pObj = new PhysicsObject();
+	pObj->m_nType = 0;
 	m_vecObjects.push_back(pObj);
 
 	// Define the dynamic body. We set its position and call the body factory.
@@ -229,6 +235,7 @@ void CNaPhysicsDlg::AddBox(int x, int y)
 
 	// Define another box shape for our dynamic body.
 	pObj->m_Size = { 30, 30 };
+	
 	b2PolygonShape dynamicBox;
 	dynamicBox.SetAsBox(pObj->m_Size.cx / 2, pObj->m_Size.cy / 2);
 
@@ -241,6 +248,47 @@ void CNaPhysicsDlg::AddBox(int x, int y)
 
 	// Override the default friction.
 	fixtureDef.friction = 0.3f;
+
+	// Add the shape to the body.
+	pObj->m_pBody->CreateFixture(&fixtureDef);
+}
+
+void CNaPhysicsDlg::AddCircle(int x, int y)
+{
+	auto pObj = new PhysicsObject();
+	pObj->m_nType = 1;
+	m_vecObjects.push_back(pObj);
+
+	// Define the dynamic body. We set its position and call the body factory.
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	//bodyDef.position.Set(0.0f, 4.0f);
+	bodyDef.position.Set(x, y);
+	
+	auto body = pObj->m_pBody = m_World.CreateBody(&bodyDef);
+
+	// Define another box shape for our dynamic body.
+	pObj->m_Size = {30, 30};
+
+	b2Vec2 v(10.0f, 10.0f);
+	body->SetLinearVelocity(v);
+
+	b2CircleShape circle;
+	circle.m_p.Set(0, 0);
+	circle.m_radius = 15;
+
+	// Define the dynamic body fixture.
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &circle;
+
+	// 밀도
+	fixtureDef.density = 0.1f;
+
+	// 마찰
+	fixtureDef.friction = 0.0f;
+
+	// 반환
+	fixtureDef.restitution = 0.8f;
 
 	// Add the shape to the body.
 	pObj->m_pBody->CreateFixture(&fixtureDef);
